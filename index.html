@@ -31,11 +31,19 @@
       opacity: 0;
       transform: translateY(50px);
       padding: 20px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
 
     section.visible {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    section:hover {
+      transform: scale(1.02);
     }
 
     .logo {
@@ -46,12 +54,16 @@
 
     h1 {
       font-size: 28px;
+      position: relative;
+      z-index: 3;
     }
 
     p {
       font-size: 1.2rem;
       color: #ffffff;
       max-width: 600px;
+      position: relative;
+      z-index: 3;
     }
 
     .email-signup {
@@ -60,6 +72,8 @@
       flex-wrap: wrap;
       gap: 10px;
       justify-content: center;
+      position: relative;
+      z-index: 3;
     }
 
     input[type="email"] {
@@ -84,31 +98,6 @@
 
     button:hover {
       background-color: #333;
-    }
-
-    .product-gallery {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-      margin-top: 40px;
-      align-items: center;
-      width: 100%;
-    }
-
-    .product-gallery img {
-      max-width: 100%;
-      width: 60%;
-      height: auto;
-      margin: 0;
-      padding: 0;
-      align-items: stretch;
-      border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(255, 255, 255, 0.05);
-      transition: transform 0.3s ease;
-    }
-
-    .product-gallery img:hover {
-      transform: scale(1.03);
     }
 
     footer {
@@ -296,14 +285,7 @@
       object-fit: contain;
     }
 
-    .hero-banner {
-      position: relative;
-      height: 10vh;
-      width: 100%;
-      overflow: hidden;
-      background-color: black;
-    }
-
+    /* Background video/image styles */
     .background-video {
       position: absolute;
       top: 0;
@@ -315,26 +297,43 @@
       z-index: 1;
     }
 
-    .site-title {
+    .background-image {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.4;
+      z-index: 1;
+    }
+
+    /* Content overlay */
+    .content-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
       z-index: 2;
-      text-align: center;
-      font-size: 20px; /* Changed to 20px as requested */
     }
 
-    .hero-logo {
-      max-width: 80%;
-      height: auto;
+    /* Hero section specific */
+    .hero-section {
+      font-size: 20px;
     }
 
-    .logo {
-      max-width: 300px;
-      height: auto;
-      opacity: 0.95;
-      margin-top: -120px;
+    /* Post category styling */
+    .post-category {
+      font-size: 0.9rem;
+      color: #542c9e;
+      font-weight: 600;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      z-index: 3;
     }
 
     @media (max-width: 768px) {
@@ -359,26 +358,12 @@
         font-size: 0.85rem;
       }
 
-      .product-gallery {
-        padding: 0;
-        margin: 0;
-        width: 100%;
-        align-items: center;
-      }
-
-      .product-gallery img {
-        width: 97vw;
-        border-radius: 0;
-        max-width: none;
-      }
-
-      .hero-logo {
-        max-width: 300px;
-        width: 80vw;
-      }
-      
       h1 {
         font-size: 18px;
+      }
+
+      section:hover {
+        transform: none;
       }
     }
   </style>
@@ -409,60 +394,81 @@
   </div>
   
   <!-- HERO SECTION -->
-  <section class="hero-banner">
-    <video autoplay muted loop playsinline class="background-video">
-      <source src="video.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-    <div class="site-title">
-      <h1>Fresh Fruit</h1>
-    </div>
+  <section class="hero-section" onclick="openPost('featured-post')">
+    <img src="banner.jpeg" alt="Fresh Fruit Banner" class="background-image">
+    <div class="content-overlay"></div>
+    <h1>Fresh Fruit</h1>
   </section>
 
-  <section id="message">
-    <h1>Modern Operational Intelligence</h1>
-    <br>
-    <br>
-    <p>Nomad is reimagining logistics with real-time tracking, machine learning, and adaptive systems designed for the modern world.</p>
+  <!-- ALBUM REVIEW CARD -->
+  <section id="album-review" onclick="openPost('album-review-1')">
+    <img src="https://via.placeholder.com/1920x1080/1a1a1a/ffffff?text=Album+Cover" alt="Album Review" class="background-image">
+    <div class="content-overlay"></div>
+    <div class="post-category">Album Review</div>
+    <h1>The Sound That's Defining 2025</h1>
+    <p>An in-depth exploration of the album that's reshaping modern music and setting the tone for a new generation of artists.</p>
   </section>
-  
-  <section id="message">
+
+  <!-- INTERVIEW CARD -->
+  <section id="interview" onclick="openPost('interview-1')">
     <video autoplay muted loop playsinline class="background-video">
       <source src="port_video.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-    <h1>One platform. Every moving piece. Total clarity.</h1>
+    <div class="content-overlay"></div>
+    <div class="post-category">Artist Interview</div>
+    <h1>Rising Stars: The Future of Music</h1>
+    <p>Exclusive conversations with the artists who are pushing boundaries and creating the sounds of tomorrow.</p>
   </section>
 
-  <!-- 🖼 Product Images Section -->
-  <section id="products">
-    <h1>Ship With Confidence.</h1>
+  <!-- PLAYLIST CARD -->
+  <section id="playlist" onclick="openPost('playlist-1')">
+    <img src="https://via.placeholder.com/1920x1080/542c9e/ffffff?text=Curated+Playlist" alt="Curated Playlist" class="background-image">
+    <div class="content-overlay"></div>
+    <div class="post-category">Curated Playlist</div>
+    <h1>Summer Nights 2025</h1>
+    <p>The perfect soundtrack for warm evenings and endless possibilities. Handpicked tracks that capture the essence of summer.</p>
   </section>
 
-  <section id="message">
+  <!-- LIVE REVIEW CARD -->
+  <section id="live-review" onclick="openPost('live-review-1')">
     <video autoplay muted loop playsinline class="background-video">
       <source src="offloading.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-    <h1>Your people are always moving. Nomad helps you keep up.</h1>
+    <div class="content-overlay"></div>
+    <div class="post-category">Live Review</div>
+    <h1>Concert Experience Redefined</h1>
+    <p>Last night's performance was nothing short of spectacular. Here's our complete breakdown of an unforgettable show.</p>
   </section>
 
+  <!-- GEAR REVIEW CARD -->
+  <section id="gear-review" onclick="openPost('gear-review-1')">
+    <img src="https://via.placeholder.com/1920x1080/2a2a2a/ffffff?text=Studio+Gear" alt="Gear Review" class="background-image">
+    <div class="content-overlay"></div>
+    <div class="post-category">Gear Review</div>
+    <h1>Studio Essentials for 2025</h1>
+    <p>Testing the latest equipment that every producer and musician needs to know about in the evolving landscape of music creation.</p>
+  </section>
+
+  <!-- EMAIL SIGNUP SECTION -->
   <section id="signup">
-    <p>Want a live demo?</p>
+    <div class="content-overlay"></div>
+    <p>Want the latest music insights?</p>
     <form class="email-signup" action="https://formspree.io/f/mzzewoyg" method="POST">
       <input type="email" name="email" placeholder="Your email" required>
-      <button type="submit">Request</button>
+      <button type="submit">Subscribe</button>
     </form>
   </section>
 
   <footer>
     <div class="footer-content">
       <div class="social-icons">
-        <a href="https://x.com/nomadtracking" target="_blank"><i class="fab fa-twitter"></i></a>
-        <a href="https://www.instagram.com/nomadtracking" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://x.com/freshfruitmusic" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/freshfruitmusic" target="_blank"><i class="fab fa-instagram"></i></a>
       </div>
       <div class="footer-text">
-        &copy; 2025 Nomad. All rights reserved.
+        &copy; 2025 Fresh Fruit. All rights reserved.
       </div>
     </div>
   </footer>
@@ -492,6 +498,14 @@
       }
     });
 
+    // Function to handle post clicks
+    function openPost(postId) {
+      // You can replace this with actual navigation logic
+      console.log('Opening post:', postId);
+      // Example: window.location.href = `/posts/${postId}`;
+      alert(`Opening ${postId} - Replace this with actual navigation!`);
+    }
+
     // Hamburger menu toggle function
     function toggleMenu() {
       const hamburger = document.querySelector('.hamburger');
@@ -508,7 +522,7 @@
       }
     }
 
-    // Close menu function
+    // Close menu functiong
     function closeMenu() {
       const hamburger = document.querySelector('.hamburger');
       const mobileMenu = document.getElementById('mobileMenu');
