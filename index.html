@@ -256,6 +256,40 @@
       color: #542c9e;
     }
 
+    /* Close button styles */
+    .close-button {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      z-index: 1002;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .close-button span {
+      width: 30px;
+      height: 3px;
+      background-color: #fff;
+      position: absolute;
+      transition: 0.3s ease;
+    }
+
+    .close-button span:first-child {
+      transform: rotate(45deg);
+    }
+
+    .close-button span:last-child {
+      transform: rotate(-45deg);
+    }
+
+    .close-button:hover span {
+      background-color: #542c9e;
+    }
+
     .nav-logo {
       height: 65px;
       width: auto;
@@ -361,6 +395,10 @@
 
   <!-- Mobile Menu -->
   <div class="mobile-menu" id="mobileMenu">
+    <div class="close-button" onclick="closeMenu()">
+      <span></span>
+      <span></span>
+    </div>
     <ul>
       <li><a href="#home" onclick="closeMenu()">Home</a></li>
       <li><a href="#reviews" onclick="closeMenu()">Reviews</a></li>
